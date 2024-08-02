@@ -1,14 +1,44 @@
 {
-  "name": "@topo-labs/npm-topo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@eqswap/npm-topo",
+  "version": "1.0.4",
+  "description": "🛠🐊🛠 An SDK for building applications on top of EQswap",
+  "author": "Foley Yin",
+  "repository": "https://github.com/Topo-Labs/npm-topo.git",
+  "license": "MIT",
+  "keywords": [
+    "web3",
+    "DEX",
+    "sdk"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "test": "jest",
+    "clean": "rm -rf dist build package",
+    "ts-node": "ts-node",
+    "docs": "typedoc --entryPoints src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "build-all": "yarn clean && yarn build",
+    "build-local": "yarn build-all && yarn copy-local"
   },
-  "author": "yaoxuan",
-  "license": "ISC",
-  "publishConfig": {
-    "registry":"https://npm.pkg.github.com/"
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.12",
+    "@typescript-eslint/eslint-plugin": "^7.11.0",
+    "@typescript-eslint/parser": "^7.11.0",
+    "esbuild": "^0.21.4",
+    "eslint": "^9.3.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.4",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.25.13",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "ethers": "^6.13.0"
   }
 }
