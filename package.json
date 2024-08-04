@@ -1,9 +1,9 @@
 {
-  "name": "@crocswap-libs/sdk",
-  "version": "0.3.9-2",
-  "description": "🛠🐊🛠 An SDK for building applications on top of CrocSwap",
-  "author": "Ben Wolski <ben@crocodilelabs.io>",
-  "repository": "https://github.com/CrocSwap/sdk.git",
+  "name": "npm-topo",
+  "version": "1.0.8",
+  "description": "🛠🐊🛠 An SDK for building applications on top of EQswap",
+  "author": "Foley yin",
+  "repository": "https://github.com/Topo-Labs/npm-topo.git",
   "license": "MIT",
   "keywords": [
     "web3",
@@ -23,7 +23,6 @@
     "docs": "typedoc --entryPoints src/index.ts",
     "build": "tsc -p tsconfig.json",
     "build-all": "yarn clean && yarn build",
-    "copy-local": "cp -r dist ../ambient-ts-app/node_modules/@crocswap-libs/sdk/",
     "build-local": "yarn build-all && yarn copy-local"
   },
   "devDependencies": {
