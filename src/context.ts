@@ -1,14 +1,13 @@
-import { Provider, JsonRpcProvider } from "ethers";
+import { Provider, JsonRpcProvider } from "@ethersproject/providers";
 import { Contract, ethers, Signer } from "ethers";
 import { ChainSpec, CHAIN_SPECS } from "./constants";
 import { CROC_ABI, QUERY_ABI, ERC20_ABI } from "./abis";
-import { ZeroAddress } from "ethers";
+import { AddressZero } from "@ethersproject/constants";
 import { IMPACT_ABI } from "./abis/impact";
 import { ERC20_READ_ABI } from "./abis/erc20.read";
 
 export interface CrocContext {
   provider: Provider;
-  actor: Provider | Signer;
   dex: Contract;
   router?: Contract;
   routerBypass?: Contract;
@@ -41,7 +40,7 @@ async function buildProvider(
   } else if ("getNetwork" in arg) {
     return [arg, signer];
   } else {
-    const chainId = Number((await arg.provider?.getNetwork())?.chainId);
+    const chainId = await arg.getChainId();
     return buildProvider(chainId, signer);
   }
 }
@@ -50,28 +49,26 @@ async function setupProvider(
   provider: Provider,
   signer?: Signer
 ): Promise<CrocContext> {
-  const actor = await determineActor(provider, signer);
+  const actor = determineActor(provider, signer);
   const chainId = await getChain(provider);
   let cntx = inflateContracts(chainId, provider, actor);
   return await attachSenderAddr(cntx, actor)
 }
 
-async function attachSenderAddr (cntx: CrocContext,
+async function attachSenderAddr (cntx: CrocContext, 
   actor: Provider | Signer): Promise<CrocContext> {
   if ('getAddress' in actor) {
     try {
       cntx.senderAddr = await actor.getAddress()
-    } catch (e) {
-      console.warn("Failed to get signer address:", e)
-     }
+    } catch (e) { }
   }
   return cntx
 }
 
-async function determineActor(
+function determineActor(
   provider: Provider,
   signer?: Signer
-): Promise<Signer | Provider> {
+): Signer | Provider {
   if (signer) {
     try {
       return signer.connect(provider)
@@ -80,10 +77,10 @@ async function determineActor(
     }
   } else if ("getSigner" in provider) {
     try {
-      let signer = await ((provider as ethers.JsonRpcProvider).getSigner());
+      let signer = (provider as ethers.providers.Web3Provider).getSigner();
       return signer
-    } catch {
-      return provider
+    } catch { 
+      return provider 
     }
   } else {
     return provider;
@@ -94,7 +91,7 @@ async function getChain(provider: Provider): Promise<number> {
   if ("chainId" in provider) {
     return (provider as any).chainId as number;
   } else if ("getNetwork" in provider) {
-    return provider.getNetwork().then((n) => Number(n.chainId));
+    return provider.getNetwork().then((n) => n.chainId);
   } else {
     throw new Error("Invalid provider");
   }
@@ -109,14 +106,13 @@ function inflateContracts(
   const context = lookupChain(chainId);
   return {
     provider: provider,
-    actor: actor,
     dex: new Contract(context.addrs.dex, CROC_ABI, actor),
-    router: context.addrs.router ? new Contract(context.addrs.router || ZeroAddress, CROC_ABI, actor) : undefined,
-    routerBypass: context.addrs.routerBypass ? new Contract(context.addrs.routerBypass || ZeroAddress, CROC_ABI, actor) : undefined,
+    router: context.addrs.router ? new Contract(context.addrs.router || AddressZero, CROC_ABI, actor) : undefined,
+    routerBypass: context.addrs.routerBypass ? new Contract(context.addrs.routerBypass || AddressZero, CROC_ABI, actor) : undefined,
     query: new Contract(context.addrs.query, QUERY_ABI, provider),
     slipQuery: new Contract(context.addrs.impact, IMPACT_ABI, provider),
-    erc20Write: new Contract(ZeroAddress, ERC20_ABI, actor),
-    erc20Read: new Contract(ZeroAddress, ERC20_READ_ABI, provider),
+    erc20Write: new Contract(AddressZero, ERC20_ABI, actor),
+    erc20Read: new Contract(AddressZero, ERC20_READ_ABI, provider),
     chain: context,
     senderAddr: addr
   };
@@ -131,16 +127,5 @@ export function lookupChain(chainId: number | string): ChainSpec {
       throw new Error("Unsupported chain ID: " + chainId);
     }
     return context;
-  }
-}
-
-export async function ensureChain(cntx: CrocContext) {
-  const walletNetwork = await cntx.actor.provider?.getNetwork()
-  if (!walletNetwork) {
-      throw new Error('No network selected in the wallet')
-  }
-  const contextNetwork = cntx.chain
-  if (walletNetwork.chainId !== BigInt(contextNetwork.chainId)) {
-      throw new Error(`Wrong chain selected in the wallet: expected ${contextNetwork.displayName} (${contextNetwork.chainId}) but got ${walletNetwork.name} (0x${Number(walletNetwork.chainId).toString(16)})`)
   }
 }

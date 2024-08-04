@@ -1,33 +1,33 @@
-import { ethers } from "ethers";
+import { BigNumberish, ethers } from "ethers";
 
 export class KnockoutEncoder {
     constructor(base: string, quote: string, poolIdx: number) {
         this.base = base;
         this.quote = quote;
         this.poolIdx = poolIdx;
-        this.abiCoder = new ethers.AbiCoder();
+        this.abiCoder = new ethers.utils.AbiCoder();
     }
-
+    
     private base: string;
     private quote: string;
     private poolIdx: number;
-    private abiCoder: ethers.AbiCoder;
+    private abiCoder: ethers.utils.AbiCoder;
 
-    encodeKnockoutMint (qty: bigint, lowerTick:number, upperTick: number,
+    encodeKnockoutMint (qty: BigNumberish, lowerTick:number, upperTick: number,
         isBid: boolean, useSurplusFlags: number): string {
         const MINT_SUBCMD = 91
         const suppArgs = this.abiCoder.encode(["uint128", "bool"], [qty, false])
         return this.encodeCommonArgs(MINT_SUBCMD, lowerTick, upperTick, isBid, useSurplusFlags, suppArgs)
     }
 
-    encodeKnockoutBurnQty (qty: bigint, lowerTick:number, upperTick: number,
+    encodeKnockoutBurnQty (qty: BigNumberish, lowerTick:number, upperTick: number,
         isBid: boolean, useSurplusFlags: number): string {
         const BURN_SUBCMD = 92
         const suppArgs = this.abiCoder.encode(["uint128", "bool", "bool"], [qty, false, false])
         return this.encodeCommonArgs(BURN_SUBCMD, lowerTick, upperTick, isBid, useSurplusFlags, suppArgs)
     }
 
-    encodeKnockoutBurnLiq (liq: bigint, lowerTick:number, upperTick: number,
+    encodeKnockoutBurnLiq (liq: BigNumberish, lowerTick:number, upperTick: number,
         isBid: boolean, useSurplusFlags: number): string {
         const BURN_SUBCMD = 92
         const suppArgs = this.abiCoder.encode(["uint128", "bool", "bool"], [liq, true, true])
@@ -43,9 +43,9 @@ export class KnockoutEncoder {
 
     private encodeCommonArgs (subcmd: number, lowerTick:number, upperTick: number,
         isBid: boolean, useSurplusFlags: number, suppArgs: string): string {
-        return this.abiCoder.encode(KNOCKOUT_ARG_TYPES,
-            [subcmd, this.base, this.quote, this.poolIdx,
-                lowerTick, upperTick, isBid,
+        return this.abiCoder.encode(KNOCKOUT_ARG_TYPES, 
+            [subcmd, this.base, this.quote, this.poolIdx, 
+                lowerTick, upperTick, isBid, 
                 useSurplusFlags, suppArgs])
     }
 }

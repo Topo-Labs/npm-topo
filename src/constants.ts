@@ -1,13 +1,14 @@
+import { BigNumber } from "ethers";
+
 type ChainAddress = string;
 type ChainId = string;
 
 export const MIN_TICK = -665454;
 export const MAX_TICK = 831818;
-export const MAX_SQRT_PRICE: bigint = BigInt(
-  "21267430153580247136652501917186561138") - BigInt(1);
-export const MIN_SQRT_PRICE: bigint = BigInt("65538") - BigInt(1);
-export const MAX_LIQ = BigInt(2) ** BigInt(128) - BigInt(1);
-
+export const MAX_SQRT_PRICE: BigNumber = BigNumber.from(
+  "21267430153580247136652501917186561138").sub(1);
+export const MIN_SQRT_PRICE: BigNumber = BigNumber.from("65538").sub(1);
+export const MAX_LIQ = BigNumber.from(2).pow(128).sub(1);
 
 export interface ChainSpec {
   nodeUrl: string;
@@ -38,14 +39,14 @@ const ETHEREUM_LOGO =
   "https://d33wubrfki0l68.cloudfront.net/fcd4ecd90386aeb50a235ddc4f0063cfbb8a7b66/4295e/static/bfc04ac72981166c740b189463e1f74c/40129/eth-diamond-black-white.jpg";
 const SCROLL_LOGO =
   "https://develop--ambient-finance.netlify.app/scroll_logo.png";
-const BLAST_LOGO =
+const BLAST_LOGO = 
  "https://assets-global.website-files.com/65a6baa1a3f8ed336f415cb4/65a6cc95aae1066cf96d497d_Logo%20Black%20on%20Yellow%20Background%402x-p-500.png"
 
 const DFLT_SDK_INFURA_KEY = '4741d1713bff4013bc3075ed6e7ce091'
 
 const GOERLI_CHAIN: ChainSpec = {
-  nodeUrl: "https://goerli.infura.io/v3/" + DFLT_SDK_INFURA_KEY,
-  wsUrl: "wss://goerli.infura.io/ws/v3/" + DFLT_SDK_INFURA_KEY,
+  nodeUrl: "https://goerli.infura.io/v3/" + DFLT_SDK_INFURA_KEY, 
+  wsUrl: "wss://goerli.infura.io/ws/v3/" + DFLT_SDK_INFURA_KEY, 
   addrs: {
     dex: "0xfafcd1f5530827e7398b6d3c509f450b1b24a209",
     query: "0xc9900777baa5EE94Cd2C6509fb09278A1A46b7e8",
@@ -136,9 +137,9 @@ const SEPOLIA_CHAIN: ChainSpec = {
   logoUrl: ETHEREUM_LOGO,
 };
 
-const BSC_TEST = {
+const BSC_TEST: ChainSpec = {
   nodeUrl: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
-  wsUrl: "wss://bsc-testnet-rpc.publicnode.com	", 
+  wsUrl: "wss://bsc-testnet-rpc.publicnode.com	",
   addrs: {
     dex: "0xC037A5D3838F70Ef64f87314a5d11A6161bB0e06",
     query: "0x9201E0a15AD01b34d4dc28739B64211ed78a32BA",
@@ -146,8 +147,6 @@ const BSC_TEST = {
     router: "0x459C0648265a070af69cd553235b2379E3114318",
     routerBypass: "0xb300d400555C49a2c5b51bc84042A7f22Cdc5383"
   },
-
-
   poolIndex: 9996,
   isTestNet: true,
   chainId: "0x61",
@@ -234,27 +233,6 @@ const SCROLL_SEPOLIA_CHAIN: ChainSpec = {
   logoUrl: SCROLL_LOGO,
 };
 
-const PLUME_SEPOLIA_CHAIN: ChainSpec = {
-  nodeUrl: "https://testnet-rpc.plumenetwork.xyz/http",
-  addrs: {
-    dex: "0x4c722A53Cf9EB5373c655E1dD2dA95AcC10152D1",
-    query: "0x1C74Dd2DF010657510715244DA10ba19D1F3D2B7",
-    impact: "0x70a6a0C905af5737aD73Ceba4e6158e995031d4B",
-  },
-  poolIndex: 36000,
-  isTestNet: true,
-  chainId: "0x99c0a0f",
-  gridSize: 1,
-  proxyPaths: {
-    cold: 3,
-    long: 130,
-    liq: 128
-  },
-  blockExplorer: "https://testnet-explorer.plumenetwork.xyz/",
-  displayName: "Plume Sepolia",
-  logoUrl: ETHEREUM_LOGO,
-};
-
 const SCROLL_CHAIN: ChainSpec = {
   nodeUrl: "https://rpc.scroll.io",
   addrs: {
@@ -296,7 +274,6 @@ export const CHAIN_SPECS: { [chainId: string]: ChainSpec } = {
   "0x61": BSC_TEST,
   "0xa0c71fd": BLAST_SEPOLIA_CHAIN,
   "0x13e31": BLAST_CHAIN,
-  "0x99c0a0f": PLUME_SEPOLIA_CHAIN,
   "goerli": GOERLI_CHAIN,
   "sepolia": SEPOLIA_CHAIN,
   "arbtest": ARB_GOERLI_CHAIN,
@@ -310,5 +287,4 @@ export const CHAIN_SPECS: { [chainId: string]: ChainSpec } = {
   "scrollsepolia": SCROLL_SEPOLIA_CHAIN,
   "blast": BLAST_CHAIN,
   "blastSepolia": BLAST_SEPOLIA_CHAIN,
-  "plumeSepolia": PLUME_SEPOLIA_CHAIN
 };
