@@ -3,7 +3,7 @@ export function toFixedNumber(num: number, digits: number, base?: number) {
   return Math.round(num * pow) / pow;
 }
 
-export function bigIntToFloat (val: bigint | BigNumber): number {
+export function bigIntToFloat (val: bigint): number {
   return val < BigInt(Number.MAX_SAFE_INTEGER - 1)
     ? Number(val)
     : parseFloat(val.toString());
