@@ -137,6 +137,31 @@ const SEPOLIA_CHAIN: ChainSpec = {
   logoUrl: ETHEREUM_LOGO,
 };
 
+const BSC_TEST: ChainSpec = {
+  nodeUrl: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
+  wsUrl: "wss://bsc-testnet-rpc.publicnode.com ", 
+  addrs: {
+    dex: "0xd20548c292b17cC618D34696E7E15da9fA81d2D7",
+    query: "0x5BD17f70218e95A00C480D86eDACEa0618F4d6E4",
+    impact: "0xb26abDa247FF2383C20eE5D879A100e23aF028eb", 
+    router: "0x7896E1631323A1A8DDc055184aa8393581438F31",
+    routerBypass: "0xe3446Cd73FBBB79B1029dc9460e4dAC2B5dba66c"
+  },
+  poolIndex: 9999,
+  isTestNet: true,
+  chainId: "0x61",
+  gridSize: 4,
+  proxyPaths: {
+    cold: 3,
+    long: 4,
+    liq: 2,
+    dfltColdSwap: true
+  },
+  blockExplorer: "https://testnet.bscscan.com/",
+  displayName: "BSC Testnet",
+  logoUrl: ETHEREUM_LOGO,
+};
+
 const BLAST_CHAIN: ChainSpec = {
   nodeUrl: "https://rpc.ankr.com/blast",
   addrs: {
@@ -246,6 +271,7 @@ export const CHAIN_SPECS: { [chainId: string]: ChainSpec } = {
   "0xaa36a7": SEPOLIA_CHAIN,
   "0x8274f": SCROLL_SEPOLIA_CHAIN,
   "0x82750": SCROLL_CHAIN,
+  "0x61": BSC_TEST,
   "0xa0c71fd": BLAST_SEPOLIA_CHAIN,
   "0x13e31": BLAST_CHAIN,
   "goerli": GOERLI_CHAIN,
@@ -254,6 +280,7 @@ export const CHAIN_SPECS: { [chainId: string]: ChainSpec } = {
   "arbgoerli": ARB_GOERLI_CHAIN,
   "local": LOCAL_FORK_CHAIN,
   "ethereum": MAINNET_CHAIN,
+  "bsctest": BSC_TEST,
   "mainnet": MAINNET_CHAIN,
   "scrolltest": SCROLL_SEPOLIA_CHAIN,
   "scroll": SCROLL_CHAIN,
