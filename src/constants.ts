@@ -142,7 +142,7 @@ const BSC_TEST: ChainSpec = {
   wsUrl: "wss://bsc-testnet-rpc.publicnode.com ", 
   addrs: {
     dex: "0xd20548c292b17cC618D34696E7E15da9fA81d2D7",
-    query: "0x5BD17f70218e95A00C480D86eDACEa0618F4d6E4",
+    query: "0x74C1Ee5C750a1fe4eCF69747AC5e20F010E8e275",
     impact: "0xb26abDa247FF2383C20eE5D879A100e23aF028eb", 
     router: "0x7896E1631323A1A8DDc055184aa8393581438F31",
     routerBypass: "0xe3446Cd73FBBB79B1029dc9460e4dAC2B5dba66c"
