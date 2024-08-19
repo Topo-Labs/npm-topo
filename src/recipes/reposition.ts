@@ -33,7 +33,7 @@ export class CrocReposition {
         this.impact = opts?.impact || DEFAULT_REBAL_SLIPPAGE
     }
 
-    async rebal(): Promise<TransactionResponse> {        
+    async rebal(): Promise<TransactionResponse> {      
         const directive = await this.formatDirective()
         let cntx = await this.pool.context
         const path = cntx.chain.proxyPaths.long
