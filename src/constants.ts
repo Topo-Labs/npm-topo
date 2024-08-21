@@ -141,11 +141,11 @@ const BSC_TEST: ChainSpec = {
   nodeUrl: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
   wsUrl: "wss://bsc-testnet-rpc.publicnode.com ", 
   addrs: {
-    dex: "0x1cE51536FD612d9DcF235baAaF5919208536439E",
-    query: "0xD9130A2dc3BEEED3DddfBebE99314e18559396d4",
-    impact: "0xFF39adE5D28bEAdBB1F8A528E3Aab1e633818314", 
-    router: "0xBf49984bC21949a974cA6B0E3A5a10a68972Dd6D",
-    routerBypass: "0xb1f0E3354eC08bC6f123b25386f9367E3a3A5309"
+    dex: "0x3Fef24FC8F3CC5e879aeb72D76673106b4f0102F",
+    query: "0x8741b815D9EDfbF4F5CB771BB4Be9C3C2cA6FF59",
+    impact: "0xf6A8E1067F2039fA6E0153800e6f15d51391b157", 
+    router: "0x0A32a187A99d97E245b345616BaFF7F3d53aCc17",
+    routerBypass: "0x2c713D0263CAc1359B3e16a83C707Cd72316d8Cc"
   },
   poolIndex: 9999,
   isTestNet: true,
