@@ -34,6 +34,8 @@ export interface ChainSpec {
   logoUrl?: string;
 }
 
+const BASE_LOGO = 
+  "https://icons.llamao.fi/icons/chains/rsz_base.jpg";
 const ETHEREUM_LOGO =
   "https://d33wubrfki0l68.cloudfront.net/fcd4ecd90386aeb50a235ddc4f0063cfbb8a7b66/4295e/static/bfc04ac72981166c740b189463e1f74c/40129/eth-diamond-black-white.jpg";
 const SCROLL_LOGO =
@@ -136,9 +138,34 @@ const SEPOLIA_CHAIN: ChainSpec = {
   logoUrl: ETHEREUM_LOGO,
 };
 
+const BASE_CHAIN: ChainSpec = {
+  nodeUrl: "https://base.drpc.org",
+  wsUrl: "wss://base-rpc.publicnode.com", 
+  addrs: {
+    dex: "0x504Ffa2bf76649E10bA84941629D0af5511d5fAf",
+    query: "0x37b42B2FA64291780Ee52c0Ce29ee53927856e83",
+    impact: "0x16A9e54B39B27792784eD9a215abB706370cCAa2", 
+    router: "0x02146810B7fB906bB91507d7BD50806E1C208419",
+    routerBypass: "0xe6F098e05374e40B7D7A7b8bAA7E9827E582AA70"
+  },
+  poolIndex: 8453,
+  isTestNet: true,
+  chainId: "0x2105",
+  gridSize: 4,
+  proxyPaths: {
+    cold: 3,
+    long: 4,
+    liq: 2,
+    dfltColdSwap: true
+  },
+  blockExplorer: "https://basescan.org/",
+  displayName: "BASE mainnet",
+  logoUrl: BASE_LOGO,
+};
+
 const BSC_TEST: ChainSpec = {
   nodeUrl: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
-  wsUrl: "wss://bsc-testnet-rpc.publicnode.com ", 
+  wsUrl: "wss://bsc-testnet-rpc.publicnode.com", 
   addrs: {
     dex: "0xFdbBB07E7a981af65EF936be597D5aa5B0B189e4",
     query: "0x680C95F713a14652f4d98e31156CB8bBDaD3dAa1",
@@ -286,6 +313,7 @@ const LOCAL_FORK_CHAIN: ChainSpec = Object.assign({}, GOERLI_CHAIN, {
 export const CHAIN_SPECS: { [chainId: string]: ChainSpec } = {
   "0x1": MAINNET_CHAIN,
   "0x5": GOERLI_CHAIN,
+  "0x2105": BASE_CHAIN,
   "0x7a69": LOCAL_FORK_CHAIN,
   "0x66eed": ARB_GOERLI_CHAIN,
   "0xaa36a7": SEPOLIA_CHAIN,
@@ -296,6 +324,7 @@ export const CHAIN_SPECS: { [chainId: string]: ChainSpec } = {
   "0x13e31": BLAST_CHAIN,
   "0x99c0a0f": PLUME_SEPOLIA_CHAIN,
   "goerli": GOERLI_CHAIN,
+  "base": BASE_CHAIN,
   "sepolia": SEPOLIA_CHAIN,
   "arbtest": ARB_GOERLI_CHAIN,
   "arbgoerli": ARB_GOERLI_CHAIN,
