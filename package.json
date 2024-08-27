@@ -1,6 +1,6 @@
 {
   "name": "npm-topo",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "🛠🐊🛠 An SDK for building applications on top of EQswap",
   "author": "Foley yin",
   "repository": "https://github.com/Topo-Labs/npm-topo.git",
