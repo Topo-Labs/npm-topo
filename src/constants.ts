@@ -139,7 +139,7 @@ const SEPOLIA_CHAIN: ChainSpec = {
 };
 
 const BASE_CHAIN: ChainSpec = {
-  nodeUrl: "https://base.drpc.org",
+  nodeUrl: "https://base-rpc.publicnode.com",
   wsUrl: "wss://base-rpc.publicnode.com", 
   addrs: {
     dex: "0x504Ffa2bf76649E10bA84941629D0af5511d5fAf",
@@ -159,7 +159,7 @@ const BASE_CHAIN: ChainSpec = {
     dfltColdSwap: true
   },
   blockExplorer: "https://basescan.org/",
-  displayName: "BASE mainnet",
+  displayName: "Base",
   logoUrl: BASE_LOGO,
 };
 
